@@ -19,22 +19,19 @@ jobs:
           python-version: "3.10"
       - name: Install Dependencies
         run: |
-          ls
           python -m pip install --upgrade pip
           pip install coverage
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          ls
       - name: Run Coverage Test
         run: |
           echo "Unit test"
           coverage run -m unittest discover
-          coverage xml -o coverage2.xml
-          ls
+          coverage xml -o coverage.xml
       - name: Upload Coverage report to Sonar Job
         uses: actions/upload-artifact@v3
         with:
           name: coverage
-          path: coverage2.xml
+          path: coverage.xml
 
   sonarcloud:
     name: SonarCloud
